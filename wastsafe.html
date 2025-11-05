@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>WastSafe — Protótipo</title>
+    <style>
+        :root {
+            --green: #0e5b48;
+            /* header/hero */
+            --mint: #4fb9a6;
+            /* buttons */
+            --muted: #f2f4f3;
+            --card: #ffffff;
+            --gray: #bfbfbf;
+            --footer: #d1d1d1;
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: var(--muted);
+            color: #123;
+        }
+
+        header {
+            background: #fff;
+            border-bottom: 4px solid var(--green);
+            position: sticky;
+            top: 0;
+            z-index: 10
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 20px
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--mint), #9bd1c7);
+            display: inline-block
+        }
+
+        .brand h1 {
+            font-size: 18px;
+            margin: 0;
+            color: var(--green)
+        }
+
+        nav ul {
+            display: flex;
+            gap: 10px;
+            list-style: none;
+            margin: 0;
+            padding: 0
+        }
+
+        nav a {
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--green)
+        }
+
+        nav a.active {
+            background: var(--mint);
+            color: #fff
+        }
+
+        .cta {
+            margin-left: auto
+        }
+
+        .cta button {
+            background: var(--mint);
+            border: 0;
+            padding: 10px 16px;
+            border-radius: 22px;
+            color: #fff;
+            font-weight: 600
+        }
+
+        /* Hero */
+        .hero {
+            background: var(--green);
+            color: #fff;
+            padding: 60px 0;
+            text-align: center
+        }
+
+        .hero h2 {
+            font-size: 40px;
+            margin: 0 0 12px
+        }
+
+        .hero p {
+            max-width: 760px;
+            margin: 0 auto 18px;
+            color: rgba(255, 255, 255, 0.9)
+        }
+
+        .hero .btn {
+            background: var(--mint);
+            border: 0;
+            padding: 12px 18px;
+            border-radius: 36px;
+            color: #fff;
+            font-weight: 600
+        }
+
+        /* Sections */
+        section {
+            padding: 36px 0
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06)
+        }
+
+        /* Marketplace */
+        .filters {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 18px
+        }
+
+        .search {
+            flex: 1;
+            display: flex;
+            gap: 8px
+        }
+
+        .search input,
+        .filters select {
+            padding: 10px;
+            border-radius: 22px;
+            border: 1px solid #e4e4e4
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px
+        }
+
+        .product {
+            background: #fff;
+            border-radius: 12px;
+            padding: 12px
+        }
+
+        .product img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px
+        }
+
+        .product h4 {
+            margin: 8px 0 4px;
+            font-size: 16px
+        }
+
+        .price {
+            font-weight: 700;
+            color: var(--green)
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 18px
+        }
+
+        .page-btn {
+            padding: 8px 12px;
+            border-radius: 14px;
+            border: 1px solid #dcdcdc;
+            background: #fff
+        }
+
+        /* Track */
+        .track-steps {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            background: #f6f6f6;
+            padding: 12px;
+            border-radius: 8px
+        }
+
+        /* Announce */
+        .announce {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 16px
+        }
+
+        .thumb {
+            height: 220px;
+            background: #eee;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777
+        }
+
+        .form-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 10px
+        }
+
+        .form-row input,
+        textarea,
+        select {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #e4e4e4
+        }
+
+        footer {
+            background: var(--footer);
+            padding: 18px;
+            text-align: center;
+            color: #fff
+        }
+
+        footer .small {
+            color: #555
+        }
+
+        /* Responsive tweaks */
+        @media(max-width:800px) {
+            .announce {
+                grid-template-columns: 1fr
+            }
+
+            .hero h2 {
+                font-size: 28px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container nav">
+            <div class="brand">
+                <div class="avatar" aria-hidden></div>
+                <h1>WastSafe</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="nav-link active" data-page="home">Início</a></li>
+                    <li><a href="#" class="nav-link" data-page="market">Marketplace</a></li>
+                    <li><a href="#" class="nav-link" data-page="track">Rastrear pedido</a></li>
+                    <li><a href="#" class="nav-link" data-page="how">Como funciona</a></li>
+                    <li><a href="#" class="nav-link" data-page="about">Sobre nós</a></li>
+                </ul>
+            </nav>
+            <div class="cta"><button id="announceBtn">Anunciar Material</button></div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Home -->
+        <section id="home" class="hero">
+            <div class="container">
+                <h2>Sua solução para<br>Componentes Eletrônicos</h2>
+                <p>Conectamos geradores de resíduos a recicladores. Descubra como é fácil descartar com responsabilidade
+                    e promover a economia circular.</p>
+                <button class="btn" data-page="market">Explorar Materiais</button>
+            </div>
+        </section>
+
+        <!-- Marketplace -->
+        <section id="market" style="display:none">
+            <div class="container">
+                <h3 style="text-align:center;color:var(--green)">Marketplace</h3>
+                <div class="card" style="margin-top:12px">
+                    <div class="filters">
+                        <div class="search"><input id="searchInput" placeholder="Pesquisar..."><button
+                                id="searchBtn">🔍</button></div>
+                        <select id="categorySelect">
+                            <option value="all">Todas categorias</option>
+                            <option value="perifericos">Periféricos</option>
+                            <option value="componentes">Componentes</option>
+                            <option value="acessorios">Acessórios</option>
+                        </select>
+                        <div style="margin-left:auto"><button id="cartBtn">🛒</button></div>
+                    </div>
+
+                    <div id="productGrid" class="grid" style="margin-top:12px"></div>
+
+                    <div class="pagination" id="pagination"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Track -->
+        <section id="track" style="display:none">
+            <div class="container">
+                <h3 style="text-align:center;color:var(--green)">Rastreio</h3>
+                <div class="card" style="margin-top:12px;padding:18px">
+                    <div style="display:flex;gap:16px;align-items:center">
+                        <div
+                            style="width:150px;height:110px;background:#eee;border-radius:12px;display:flex;align-items:center;justify-content:center">
+                            📦</div>
+                        <div style="flex:1">
+                            <h4>Lote de SmartPhones</h4>
+                            <p>Código de rastreio: <strong>#RSK123456789</strong></p>
+                            <div class="track-steps" style="margin-top:8px">
+                                <div class="step">Pedido Confirmado</div>
+                                <div class="step">Material Coletado</div>
+                                <div class="step">Material em Transporte</div>
+                                <div class="step">Entrega ao Reciclador</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Announce -->
+        <section id="announce" style="display:none">
+            <div class="container">
+                <h3 style="text-align:center;color:var(--green)">Anunciar</h3>
+                <div class="card announce" style="margin-top:12px">
+                    <div class="thumb">Arraste ou clique para adicionar foto</div>
+                    <div>
+                        <div class="form-row">
+                            <select id="annCat">
+                                <option>Categoria</option>
+                                <option>Periféricos</option>
+                                <option>Componentes</option>
+                                <option>Acessórios</option>
+                            </select>
+                            <input id="annTitle" placeholder="Título" />
+                        </div>
+                        <div class="form-row">
+                            <input id="annPrice" placeholder="Preço (R$)" />
+                            <input id="annQty" placeholder="Quantidade" />
+                        </div>
+                        <div style="margin-bottom:10px"><textarea id="annDesc" rows="4"
+                                placeholder="Descrição do material"></textarea></div>
+                        <div style="display:flex;gap:8px"><button id="publishBtn">Publicar</button><button
+                                id="previewBtn">Visualizar</button></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How -->
+        <section id="how" style="display:none">
+            <div class="container">
+                <h3 style="text-align:center;color:var(--green)">Como funciona</h3>
+                <div class="card" style="margin-top:12px;padding:20px;text-align:center">
+                    <p>Conectamos geradores de resíduos a recicladores, simplificando a logística reversa e garantindo
+                        descarte seguro.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About -->
+        <section id="about" style="display:none">
+            <div class="container">
+                <h3 style="text-align:center;color:var(--green)">Sobre nós</h3>
+                <div class="card" style="margin-top:12px;padding:24px;text-align:center">
+                    <p>A WastSafe é uma iniciativa que promove a economia circular no setor de resíduos eletrônicos.
+                        Nosso objetivo é conectar geradores e recicladores, simplificando a logística reversa e
+                        garantindo que o descarte seja feito de forma segura e responsável.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container small">WastSafe 2025</div>
+    </footer>
+
+    <script>
+        // --- Simple SPA navigation ---
+        const links = document.querySelectorAll('.nav-link');
+        const sections = ['home', 'market', 'track', 'how', 'about', 'announce'];
+        function showPage(page) {
+            sections.forEach(s => {
+                const el = document.getElementById(s);
+                if (!el) return;
+                el.style.display = (s === page) ? (s === 'home' ? 'block' : 'block') : 'none';
+            });
+            links.forEach(a => a.classList.toggle('active', a.dataset.page === page));
+            // scroll top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // if market show render
+            if (page === 'market') renderProducts();
+        }
+        links.forEach(a => a.addEventListener('click', (e) => { e.preventDefault(); showPage(a.dataset.page); }));
+        document.querySelectorAll('[data-page]').forEach(btn => btn.addEventListener('click', (e) => {
+            const p = btn.dataset.page; if (p) showPage(p);
+        }));
+        document.getElementById('announceBtn').addEventListener('click', () => showPage('announce'));
+
+        // --- Fake product data and rendering ---
+        const products = [];
+        for (let i = 1; i <= 24; i++) {
+            products.push({
+                id: i,
+                title: ["Teclado de Membrana", "Monitor", "Laptop com defeito", "Relógio de Pulso Digital", "Placa Mãe", "Pendrives Recondicionados", "Lote de Gabinetes", "Fones de ouvido", "Lote de Mouses"][i % 9] + ' #' + i,
+                category: ["perifericos", "componentes", "computadores", "acessorios"][i % 4],
+                price: (Math.floor(Math.random() * 450) + 30),
+                img: `data:image/svg+xml;utf8,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><rect width='100%' height='100%' fill='%23f3f3f3'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='28' fill='%23999'>Imagem ${i}</text></svg>`)}`
+            });
+        }
+
+        // pagination state
+        let page = 1; const perPage = 9;
+        function renderProducts() {
+            const grid = document.getElementById('productGrid'); grid.innerHTML = '';
+            const cat = document.getElementById('categorySelect').value;
+            const q = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = products.filter(p => (cat === 'all' || p.category === cat) && (p.title.toLowerCase().includes(q) || p.category.includes(q)));
+            const total = Math.ceil(filtered.length / perPage);
+            page = Math.min(page, total || 1);
+            const start = (page - 1) * perPage; const slice = filtered.slice(start, start + perPage);
+            slice.forEach(p => {
+                const card = document.createElement('div'); card.className = 'product';
+                card.innerHTML = `<img src='${p.img}' alt=''><h4>${p.title}</h4><div style="font-size:13px;color:#666">Categoria: ${p.category}</div><div class='price'>R$ ${p.price.toFixed(2)}</div>`;
+                grid.appendChild(card);
+            });
+            // pagination
+            const pag = document.getElementById('pagination'); pag.innerHTML = '';
+            for (let i = 1; i <= total; i++) {
+                const b = document.createElement('button'); b.className = 'page-btn'; b.textContent = i; if (i === page) b.style.background = '#e9fffb';
+                b.addEventListener('click', () => { page = i; renderProducts(); }); pag.appendChild(b);
+            }
+        }
+        document.getElementById('searchBtn').addEventListener('click', () => { page = 1; renderProducts(); });
+        document.getElementById('categorySelect').addEventListener('change', () => { page = 1; renderProducts(); });
+
+        // Initial render when user clicks market or lands
+        // (home visible by default)
+
+        // Announce form actions
+        document.getElementById('publishBtn').addEventListener('click', () => {
+            const t = document.getElementById('annTitle').value.trim();
+            if (!t) { alert('Preencha o título.'); return }
+            alert('Anúncio publicado (simulado) — ' + t);
+            // clear
+            document.getElementById('annTitle').value = '';
+            document.getElementById('annDesc').value = '';
+        });
+        document.getElementById('previewBtn').addEventListener('click', () => {
+            const t = document.getElementById('annTitle').value || 'Sem título';
+            const p = document.getElementById('annPrice').value || '---';
+            alert(`Preview:\n${t}\nPreço: R$ ${p}`);
+        });
+
+        // show market if hash
+        if (location.hash) {
+            const target = location.hash.replace('#', '');
+            if (sections.includes(target)) showPage(target);
+        }
+    </script>
+</body>
+
+</html>
